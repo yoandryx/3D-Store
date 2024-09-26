@@ -1,0 +1,22 @@
+{
+    "Vase": [
+        {
+            "id": 1,
+            "name": "Model 1",
+            "price": 5000,
+            "quantity": 1,
+            "imgName": "closeupVase4.png",
+            "priceid": "price_1Mwy5LG3CKKD0RDrNVOIptrA"
+        }
+    ],
+    "Hands": [
+        {
+            "id": 2,
+            "name": "Model 2",
+            "price": 5000,
+            "priceid": "price_1ObEulG3CKKD0RDrH6IGB0th",
+            "quantity": 1,
+            "imgName": "Handsfinal.png"
+        }
+    ]
+}
