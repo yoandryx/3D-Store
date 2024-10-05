@@ -171,96 +171,96 @@ function updateCartTotal() {
 
 
 
-const express = require('express');
-const fs = require('fs');
-const dotenv = require('dotenv');
-const stripe = require("stripe")("sk_test_51M6kALG3CKKD0RDrA3IHBUZqTNtGQsrLvmq7IatjJAle8ZzcBcIcftb91xUZ0NqznUHnsu53WxrFhqH5iK4yvUUy00q5XRN0Fi"); // Replace this with your Stripe secret key
+// const express = require('express');
+// const fs = require('fs');
+// const dotenv = require('dotenv');
+// const stripe = require("stripe")("sk_test_51M6kALG3CKKD0RDrA3IHBUZqTNtGQsrLvmq7IatjJAle8ZzcBcIcftb91xUZ0NqznUHnsu53WxrFhqH5iK4yvUUy00q5XRN0Fi"); // Replace this with your Stripe secret key
 
-dotenv.config();
-// const stripePublicKey = process.env.STRIPE_PUBLIC_KEY; // Assuming you have defined STRIPE_PUBLIC_KEY in your .env file
+// dotenv.config();
+// // const stripePublicKey = process.env.STRIPE_PUBLIC_KEY; // Assuming you have defined STRIPE_PUBLIC_KEY in your .env file
 
-const app = express();
+// const app = express();
 
-app.set('view engine', 'ejs');
-app.use(express.json());
-app.use(express.static('public'));
+// app.set('view engine', 'ejs');
+// app.use(express.json());
+// app.use(express.static('public'));
 
-app.get('/store/', function(req, res) {
-  fs.readFile('items.json', function(error, data) {
-    if (error) {
-      res.status(500).end();
-    } else {
-      res.render('main.ejs', {
-        stripePublicKey: stripePublicKey,
-        items: JSON.parse(data)
-      });
-    }
-  });
-});
+// app.get('/store/', function(req, res) {
+//   fs.readFile('items.json', function(error, data) {
+//     if (error) {
+//       res.status(500).end();
+//     } else {
+//       res.render('main.ejs', {
+//         stripePublicKey: stripePublicKey,
+//         items: JSON.parse(data)
+//       });
+//     }
+//   });
+// });
 
-app.get('/store/', function(req, res) {
-  fs.readFile('store.js', function(error, data) {
-    if (error) {
-      res.status(500).end();
-    } else {
-      res.render('main.ejs', {
-        stripePublicKey: stripePublicKey,
-      });
-    }
-  });
-});
+// // app.get('/store/', function(req, res) {
+// //   fs.readFile('store.js', function(error, data) {
+// //     if (error) {
+// //       res.status(500).end();
+// //     } else {
+// //       res.render('main.ejs', {
+// //         stripePublicKey: stripePublicKey,
+// //       });
+// //     }
+// //   });
+// // });
 
-app.post("/purchase", async (req, res) => {
-  try {
-    fs.readFile('items.json', function(error, data) {
-      if (error) {
-        res.status(500).end();
-      } else {
-        const items = JSON.parse(data);
+// app.post("/purchase", async (req, res) => {
+//   try {
+//     fs.readFile('items.json', function(error, data) {
+//       if (error) {
+//         res.status(500).end();
+//       } else {
+//         const items = JSON.parse(data);
 
-        if(cartItemNames == "Model 1"){
-          const sale = items.Vase.map(item => ({
-            price: item.priceid,
-            quantity: item.quantity
-          }));
-        } else if(cartItemNames == "Model 2") {
-          const sale = items.Hands.map(item => ({
-            price: item.priceid,
-            quantity: item.quantity
-          }));
-        }
+//         if(cartItemNames == "Model 1"){
+//           const sale = items.Vase.map(item => ({
+//             price: item.priceid,
+//             quantity: item.quantity
+//           }));
+//         } else if(cartItemNames == "Model 2") {
+//           const sale = items.Hands.map(item => ({
+//             price: item.priceid,
+//             quantity: item.quantity
+//           }));
+//         }
 
 
-        const line_item1 = items.Vase.map(item => ({
-          price: item.priceid,
-          quantity: item.quantity
-        }));
-        const line_item2 = items.Hands.map(item => ({
-          price: item.priceid,
-          quantity: item.quantity
-        }));
+//         const line_item1 = items.Vase.map(item => ({
+//           price: item.priceid,
+//           quantity: item.quantity
+//         }));
+//         const line_item2 = items.Hands.map(item => ({
+//           price: item.priceid,
+//           quantity: item.quantity
+//         }));
 
-        console.log(line_item2); // Corrected console.log
+//         console.log(line_item2); // Corrected console.log
         
-        stripe.checkout.sessions.create({
-          payment_method_types: ["card"],
-          mode: "payment",
-          // line_items: line_item2, 
-          line_items: sale,
-          success_url: `http://localhost:8888/success.html`,
-          cancel_url: `http://localhost:8888/cancel.html`,
-        })
-        .then(session => {
-          res.json({ url: session.url });
-        })
-        .catch(error => {
-          res.status(500).json({ error: error.message });
-        });
-      }
-    });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
+//         stripe.checkout.sessions.create({
+//           payment_method_types: ["card"],
+//           mode: "payment",
+//           // line_items: line_item2, 
+//           line_items: sale,
+//           success_url: `http://localhost:8888/success.html`,
+//           cancel_url: `http://localhost:8888/cancel.html`,
+//         })
+//         .then(session => {
+//           res.json({ url: session.url });
+//         })
+//         .catch(error => {
+//           res.status(500).json({ error: error.message });
+//         });
+//       }
+//     });
+//   } catch (e) {
+//     res.status(500).json({ error: e.message });
+//   }
+// });
 
-app.listen(8888, () => console.log("Node server listening on port 8888!"));
+// app.listen(8888, () => console.log("server listening on port 8888!"));
