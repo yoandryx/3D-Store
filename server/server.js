@@ -97,20 +97,15 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static('public'));
 
-// const helmet = require('helmet');
+const helmet = require('helmet');
 
-// app.use(helmet.contentSecurityPolicy({
-//   directives: {
-//     defaultSrc: ["'self'"],  // Allow all default content (images, etc.) from your site
-//     scriptSrc: ["'self'", 'https://static.cloudflareinsights.com'],  // Allow scripts from your site and Cloudflare
-//     styleSrc: ["'self'", 'https://fonts.googleapis.com'],  // Allow styles from your site and Google Fonts
-//     imgSrc: ["'self'", 'https://example-cdn.com'],  // Allow images from your site and a CDN
-//     connectSrc: ["'self'", 'https://api.example.com'],  // Allow connections to your API or external services
-//     fontSrc: ["'self'", 'https://fonts.gstatic.com'],  // Allow fonts from Google Fonts
-//     objectSrc: ["'none'"],  // Disallow Flash, Silverlight, etc.
-//     upgradeInsecureRequests: [],  // Ensure HTTPS is used
-//   }
-// }));
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", 'https://static.cloudflareinsights.com'],  // Allow Cloudflare script
+    // Add other directives if needed
+  }
+}));
 
 app.get('/store/', function(req, res) {
   fs.readFile('items.json', function(error, data) {
