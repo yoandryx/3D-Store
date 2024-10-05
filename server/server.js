@@ -1,147 +1,25 @@
-
-// ******************  Everything below this is valid  ******************
-
-
-
-
-// const express = require('express');
-// const fs = require('fs');
-// const dotenv = require('dotenv');
-// const stripe = require("stripe")("sk_test_51M6kALG3CKKD0RDrA3IHBUZqTNtGQsrLvmq7IatjJAle8ZzcBcIcftb91xUZ0NqznUHnsu53WxrFhqH5iK4yvUUy00q5XRN0Fi"); // Replace this with your Stripe secret key
-// const helmet = require('helmet');
-
-// dotenv.config();
-// const stripePublicKey = process.env.STRIPE_PUBLIC_KEY; // Assuming you have defined STRIPE_PUBLIC_KEY in your .env file
-
-// const app = express();
-
-// app.set('view engine', 'ejs');
-// app.use(express.json());
-// app.use(express.static('public'));
-
-
-
-// app.use(helmet.contentSecurityPolicy({
-//   directives: {
-//     defaultSrc: ["'self'"],
-//     scriptSrc: [
-//       "'self'", 
-//       "https://static.cloudflareinsights.com", 
-//       "https://js.stripe.com" // Allow Stripe script
-//     ],
-//     connectSrc: ["'self'", "https://api.stripe.com"], // Allow connections to Stripe API
-//     // Add other directives if needed (imgSrc, styleSrc, etc.)
-//   },
-// }));
-
-// app.get('/store/', function(req, res) {
-//   fs.readFile('items.json', function(error, data) {
-//     if (error) {
-//       res.status(500).end();
-//     } else {
-//       res.render('main.ejs', {
-//         stripePublicKey: stripePublicKey,
-//         items: JSON.parse(data)
-//       });
-//     }
-//   });
-// });
-
-// app.get('/store/', function(req, res) {
-//   fs.readFile('store.js', function(error, data) {
-//     if (error) {
-//       res.status(500).end();
-//     } else {
-//       res.render('main.ejs', {
-//         stripePublicKey: stripePublicKey,
-//       });
-//     }
-//   });
-// });
-
-// app.post("/purchase", async (req, res) => {
-//   try {
-//     fs.readFile('items.json', function(error, data) {
-//       if (error) {
-//         res.status(500).end();
-//       } else {
-//         const items = JSON.parse(data);
-
-//         if(cartItemNames == "Model 1"){
-//           const sale = items.Vase.map(item => ({
-//             price: item.priceid,
-//             quantity: item.quantity
-//           }));
-//         } else if(cartItemNames == "Model 2") {
-//           const sale = items.Hands.map(item => ({
-//             price: item.priceid,
-//             quantity: item.quantity
-//           }));
-//         }
-
-
-//         const line_item1 = items.Vase.map(item => ({
-//           price: item.priceid,
-//           quantity: item.quantity
-//         }));
-//         const line_item2 = items.Hands.map(item => ({
-//           price: item.priceid,
-//           quantity: item.quantity
-//         }));
-
-//         console.log(line_item2); // Corrected console.log
-        
-//         stripe.checkout.sessions.create({
-//           payment_method_types: ["card"],
-//           mode: "payment",
-//           // line_items: line_item2, 
-//           line_items: sale,
-//           success_url: `http://localhost:8888/success.html`,
-//           cancel_url: `http://localhost:8888/cancel.html`,
-//         })
-//         .then(session => {
-//           res.json({ url: session.url });
-//         })
-//         .catch(error => {
-//           res.status(500).json({ error: error.message });
-//         });
-//       }
-//     });
-//   } catch (e) {
-//     res.status(500).json({ error: e.message });
-//   }
-// });
-
-// app.listen(8888, () => console.log("Node server listening on port 8888!"));
-
-
-
-
-// 
-// This is a test
-// 
-
 const express = require('express');
-const fs = require('fs');
+const fs = require('fs').promises; // Use fs.promises for promise-based file handling
 const dotenv = require('dotenv');
+dotenv.config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // Use environment variable for secret key
 const helmet = require('helmet');
 
-dotenv.config();
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
 
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.json());
+app.use(express.json()); // Make sure your Express server is set up to parse JSON and URL-encoded data
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true })); // middleware to handle URL-encoded data, especially if you're using forms
 
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
     scriptSrc: [
       "'self'", 
-      "https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015", 
+      "https://static.cloudflareinsights.com", 
       "https://js.stripe.com"
     ],
     connectSrc: ["'self'", "https://api.stripe.com", "blob:"], // Allow blob URLs
@@ -150,69 +28,101 @@ app.use(helmet.contentSecurityPolicy({
   }
 }));
 
-app.get('/store/', function(req, res) {
-  fs.readFile('items.json', function(error, data) {
-    if (error) {
-      return res.status(500).end();
-    }
-    res.render('main.ejs', {
-      stripePublicKey: stripePublicKey,
-      items: JSON.parse(data)
-    });
-  });
-});
-
-app.get('/store/', function(req, res) {
-  fs.readFile('store.js', function(error, data) {
-    if (error) {
-      return res.status(500).end();
-    }
-    res.render('main.ejs', {
-      stripePublicKey: stripePublicKey,
-      items: JSON.parse(data)
-    });
-  });
-});
-
-app.post("/purchase", async (req, res) => {
+app.get('/store/', async function(req, res) {
   try {
-    fs.readFile('items.json', function(error, data) {
-      if (error) {
-        return res.status(500).end();
-      }
+    // Read both files concurrently using Promise.all
+    const [itemsData, storeData] = await Promise.all([
+      fs.readFile('items.json'),
+      fs.readFile('public/store.js')
+    ]);
 
-      const items = JSON.parse(data);
-      const cartItemNames = req.body.itemNames; // Assuming item names are sent in the request body
+    // Parse the items data
+    const items = JSON.parse(itemsData);
+    
+    // Handle storeData as needed
 
-      let sale;
-      if(cartItemNames === "Model 1"){
-        sale = items.Vase.map(item => ({
-          price: item.priceid,
-          quantity: item.quantity
-        }));
-      } else if(cartItemNames === "Model 2") {
-        sale = items.Hands.map(item => ({
-          price: item.priceid,
-          quantity: item.quantity
-        }));
-      }
-
-      stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        mode: "payment",
-        line_items: sale,
-        success_url: `http://localhost:8888/success.html`,
-        cancel_url: `http://localhost:8888/cancel.html`,
-      })
-      .then(session => {
-        res.json({ url: session.url });
-      })
-      .catch(error => {
-        res.status(500).json({ error: error.message });
-      });
+    res.render('main.ejs', {
+      stripePublicKey: stripePublicKey,
+      items: items,
+      storeData: storeData.toString() // Convert buffer to string if needed
     });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).end();
+  }
+})
+
+app.post("/purchase/", async (req, res) => {
+  
+  console.log('Purchase route hit');
+  console.log('Received data:', req.body);
+
+  if (!req.body.itemName || !req.body.items) {
+      console.error('Invalid request data:', req.body);
+      return res.status(400).json({ message: 'Invalid request data' });
+  }
+
+  try {
+
+    // Validate that req.body.items is an array
+    if (!req.body.items || !Array.isArray(req.body.items)) {
+      return res.status(400).json({ error: "Invalid items data in the request." });
+    }
+
+    // Read items.json asynchronously using Promises
+    const data = await fs.readFile('items.json'); // This returns a Promise
+
+    console.log("Reading items.json...");
+
+    const itemsJson = JSON.parse(data);
+    const cartItems = req.body.items;  // Get the items array from the request
+
+    let sale = [];
+
+    // Loop over each cart item to find the corresponding data in items.json
+    cartItems.forEach(cartItem => {
+      const { id, quantity } = cartItem; // Extract id and quantity
+
+      let itemFound = null;
+
+      // Search for the item in Vase or Hands based on the ID
+      itemFound = itemsJson.Vase.find(item => item.id === parseInt(id)) || 
+                  itemsJson.Hands.find(item => item.id === parseInt(id));
+
+      if (itemFound) {
+        // Add to the sale array for Stripe Checkout
+        sale.push({
+          price: itemFound.priceid, // Stripe price ID
+          quantity: parseInt(quantity) // Ensure quantity is an integer
+        });
+      }
+    });
+
+    console.log("Sale items:", sale);
+
+    // Ensure the sale array is properly constructed
+    if (sale.length === 0) {
+      return res.status(400).json({ error: "No valid items to purchase." });
+    }
+
+    console.log("Creating Stripe checkout session...");
+
+    // Create the Stripe checkout session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items: sale,
+      success_url: `${process.env.CLIENT_URL}/success.html`,
+      cancel_url: `${process.env.CLIENT_URL}/cancel.html`,
+    });
+
+    res.json({ url: session.url });
+    console.log("Session created, redirecting to:", session.url);
+
+  } catch (error) {
+    console.error("Server error:", error.message); // Log any server-side errors
+    res.status(500).json({ error: error.message });
   }
 });
 

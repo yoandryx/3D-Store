@@ -5,10 +5,10 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com; font-src 'self' https://fonts.googleapis.com data:; media-src *; script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval' https://js.stripe.com;"> -->
         <title>LAYERS</title>
 
-        <!-- <base href="/"> -->
+    
 
         <link rel="stylesheet" href="css/styles.css"/>
         
@@ -17,9 +17,7 @@
 
         <script src="../js/three.js-master/build/three.js"></script>
         <script src="../js/three.js-master/examples/js/loaders/GLTFLoader.js"></script>
-        <!-- <script src="js/three.js-master/examples/js/controls/OrbitControls.js"></script> -->
 
-        <!-- <script src="https://checkout.stripe.com/checkout.js"></script> -->
         <script src="https://js.stripe.com/v3/"></script>
         <script src="../store.js" defer></script>
         
@@ -146,6 +144,8 @@
 
                                     <form class="finalize" action="/purchase" method="POST" id="payment-form">
 
+                                            <input type="hidden" name="itemName" id="itemName" value=""> <!-- Hidden input for item name -->
+
                                             <div class="cart-total">
                                                 <strong class="cart-total-title">TOTAL</strong>
                                                 <span class="cart-total-price">$0</span>
@@ -238,7 +238,7 @@
                                                 </div>
                                                 
                                                 <div data-tilt data-tilt-axis="x" data-tilt-reverse="true" data-tilt-glare data-tilt-max-glare="0.2" class="shop-item-details">
-                                                    <span class="shop-item-title"><h3><%= item.name %></h3></span>
+                                                    <span class="shop-item-title"><h3><%= item.itemName %></h3></span>
                                                     <span class="shop-item-price"><h6>$<%= item.price / 100 %></h6></span>
                                                 </div>
 
@@ -319,7 +319,7 @@
                                                 </div>
                                                 
                                                 <div data-tilt data-tilt-axis="x" data-tilt-reverse="true" data-tilt-glare data-tilt-max-glare="0.2" class="shop-item-details">
-                                                    <span class="shop-item-title"><h3><%= item.name %></h3></span>
+                                                    <span class="shop-item-title"><h3><%= item.itemName %></h3></span>
                                                     <span class="shop-item-price"><h6>$<%= item.price / 100 %></h6></span>
                                                 </div>
 
@@ -384,8 +384,6 @@
         
         <script src="../js/vanilla-tilt.js"></script>
         <script src="../js/htmlscripts.js"></script>
-        <!-- <script src="../script.js"></script> -->
-        <!-- <script src="../store.js"></script> -->
         
     </body>
 
