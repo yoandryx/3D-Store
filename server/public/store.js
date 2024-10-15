@@ -4,6 +4,7 @@ var stripeHandler; // Declare this variable at the top
 
 let isPurchasing = false; // Flag to prevent multiple clicks
 
+
 if (document.readyState == 'loading') {
     document.addEventListener('DOMContentLoaded', ready)
 } else {
@@ -32,6 +33,11 @@ function ready() {
 
     document.getElementsByClassName('btn-purchase')[0].addEventListener('click', purchaseClicked)
 }
+
+// Get the checkout button by its id (submit)
+var checkoutButton = document.getElementById('submit');
+
+checkoutButton.disabled = true;
 
 function purchaseClicked(event) {
   if (isPurchasing) return; // Ignore further clicks until the first is processed
@@ -271,6 +277,8 @@ function updateCartTotal() {
 
     // Get the checkout button by its id (submit)
     var checkoutButton = document.getElementById('submit');
+
+    checkoutButton.disabled = true;
 
     // Enable or disable the checkout button based on total
     if (total >= 1) {
