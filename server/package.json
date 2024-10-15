@@ -2,9 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "main.ejs",
+  "main": "server.js",
   "type": "commonjs",
   "scripts": {
+    "start": "node server.js",
     "devStart": "nodemon store.js"
   },
   "keywords": [],
