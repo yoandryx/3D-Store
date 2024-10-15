@@ -28,6 +28,13 @@ app.use(helmet.contentSecurityPolicy({
   }
 }));
 
+const port = process.env.PORT || 8888; // Use the port from Render or default to 8888
+
+// Add a route for the root URL
+app.get('/', (req, res) => {
+  res.redirect('/store/'); // Redirect to the /store route
+});
+
 app.get('/store/', async function(req, res) {
   try {
     // Read both files concurrently using Promise.all
@@ -126,4 +133,4 @@ app.post("/purchase/", async (req, res) => {
   }
 });
 
-app.listen(8888, () => console.log("Node server listening on port 8888!"));
+app.listen(port, () => console.log(`Node server listening on port ${port}!`));  // Corrected console.log
