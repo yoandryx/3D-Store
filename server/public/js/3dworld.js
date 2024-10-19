@@ -253,7 +253,7 @@ function init(){
 
     var pointLightHelper10 = new THREE.PointLightHelper( logosLight, sphereSize );
 
-    scene.add( pointLightHelper10 );
+    // scene.add( pointLightHelper10 );
 
     
 
