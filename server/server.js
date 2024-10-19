@@ -14,19 +14,48 @@ app.use(express.json()); // Make sure your Express server is set up to parse JSO
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true })); // middleware to handle URL-encoded data, especially if you're using forms
 
+// app.use(helmet.contentSecurityPolicy({
+//   directives: {
+//     defaultSrc: ["'self'"],
+//     scriptSrc: [
+//       "'self'", 
+//       "https://static.cloudflareinsights.com", 
+//       "https://js.stripe.com"
+//     ],
+//     connectSrc: ["'self'", "https://api.stripe.com", "blob:"], // Allow blob URLs
+//     frameSrc: ["'self'", "https://js.stripe.com"], // Allow Stripe frame
+//     scriptSrcAttr: ["'self'", "'unsafe-inline'"] // Allow inline script attributes
+//   }
+// }));
+
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
     scriptSrc: [
-      "'self'", 
-      "https://static.cloudflareinsights.com", 
+      "'self'",
+      "https://static.cloudflareinsights.com",
       "https://js.stripe.com"
     ],
     connectSrc: ["'self'", "https://api.stripe.com", "blob:"], // Allow blob URLs
+    imgSrc: ["'self'", "data:", "blob:"], // Allow blob URLs for images
     frameSrc: ["'self'", "https://js.stripe.com"], // Allow Stripe frame
-    scriptSrcAttr: ["'self'", "'unsafe-inline'"] // Allow inline script attributes
+    scriptSrcAttr: ["'self'", "'unsafe-inline'"], // Allow inline script attributes
+    styleSrc: [
+      "'self'", 
+      "'unsafe-inline'", 
+      "https://fonts.googleapis.com", 
+      "https://api.fontshare.com"
+    ], // Allow Fontshare and Google Fonts CSS
+    fontSrc: [
+      "'self'", 
+      "https://fonts.googleapis.com", 
+      "https://fonts.gstatic.com", 
+      "https://api.fontshare.com",
+      "https://cdn.fontshare.com"
+    ], // Allow Fontshare and Google Fonts
   }
 }));
+
 
 const port = process.env.PORT || 8888; // Use the port from Render or default to 8888
 

@@ -1,5 +1,7 @@
 import gsap from '/js/node_modules/gsap/gsap-core.js';
 import {ScrollTrigger} from "/js/node_modules/gsap/ScrollTrigger.js";
+// import { OrbitControls } from '/js/three.js-master/examples/jsm/controls/OrbitControls.js';
+
 
 function init(){
 
@@ -45,7 +47,7 @@ function init(){
     // scene.add( gridHelper );
 
     const axesHelper = new THREE.AxesHelper( 5 );
-    // scene.add( axesHelper );
+    // scene.sadd( axesHelper );
     // ----------------------  End of Helpers  --------------------- //
 
 
@@ -64,7 +66,7 @@ function init(){
     camera.lookAt(bgLight.position);
     scene.add(bgLight);
     
-    var innerVaseLight = new THREE.PointLight( 0xFFFFFF, 2, 3);
+    var innerVaseLight = new THREE.PointLight( 0xE4BCFF, 4, 3);
     var leftLight = new THREE.PointLight( 0xffffff, 5, 3.3);
     var rightLight = new THREE.PointLight( 0xffffff, 5, 3.3);
 
@@ -74,10 +76,10 @@ function init(){
     var b2leftLight = new THREE.PointLight( 0xffffff, 5, 3.3);
     var b2rightLight = new THREE.PointLight( 0xffffff, 5, 3.3);
 
-    var middleLight = new THREE.PointLight( 0xffffff, 4, 4);
-    // var middleLight2 = new THREE.PointLight( 0xffffff, 3, 3);
+    var middleLight = new THREE.PointLight( 0xE4BCFF, 4, 4);
+    var middleLight2 = new THREE.PointLight( 0xffffff, 4, 4);
 
-    innerVaseLight.position.set( 0, 0.5, 2);
+    innerVaseLight.position.set( 0, -10.5, 0);
 
     leftLight.position.set( -2.3, -10.5, 4);
     rightLight.position.set( 2.3, -10.5, 4);
@@ -88,17 +90,23 @@ function init(){
     b2leftLight.position.set( -2.3, -11.5, -1);
     b2rightLight.position.set( 2.3, -11.5, -1);
 
-    middleLight.position.set( 0, -13, 4);
-    // middleLight2.position.set( 0, -1, 4);
+    middleLight.position.set( 0, 0, 4);
+    middleLight2.position.set( 0, -13, 4);
 
     if(window.innerWidth <= 1000){
-        var innerVaseLight = new THREE.PointLight( 0xFFFFFF, 20, 1.2);
+        var innerVaseLight = new THREE.PointLight( 0xE4BCFF, 4, 1.5);
         var leftLight = new THREE.PointLight( 0xffffff, 6, 5);
         var rightLight = new THREE.PointLight( 0xffffff, 6, 5);
+        var innerVaseLight2 = new THREE.PointLight( 0x315BFF, 20, 1.2);
+        var middleLight = new THREE.PointLight( 0xE4BCFF, 4, 4);
 
-        innerVaseLight.position.set( 0, 11.5, -40);
+
+        innerVaseLight.position.set( 0, 0.5, 0);
         leftLight.position.set( -2.3, 10.2, -35);
         rightLight.position.set( 2.3, 10.2, -35);
+        innerVaseLight2.position.set( 0, 11.5, -40);
+        middleLight.position.set( 0, 0, 4);
+
     }
 
     scene.add(innerVaseLight);
@@ -114,19 +122,27 @@ function init(){
     scene.add(middleLight);
     // scene.add(middleLight2);
 
+    // scene.add(innerVaseLight2);
 
     var sphereSize = 0.5;
     var pointLightHelper = new THREE.PointLightHelper( innerVaseLight, sphereSize );
     var pointLightHelper1 = new THREE.PointLightHelper( rightLight, sphereSize );
     var pointLightHelper2 = new THREE.PointLightHelper( leftLight, sphereSize );
     var pointLightHelper3 = new THREE.PointLightHelper( middleLight, sphereSize );
-    // var pointLightHelper10 = new THREE.PointLightHelper( middleLight2, sphereSize );
+    var pointLightHelper10 = new THREE.PointLightHelper( middleLight2, sphereSize );
     var pointLightHelper4 = new THREE.PointLightHelper( brightLight, sphereSize );
     var pointLightHelper5 = new THREE.PointLightHelper( bleftLight, sphereSize );
     var pointLightHelper6 = new THREE.PointLightHelper( b2rightLight, sphereSize );
     var pointLightHelper7 = new THREE.PointLightHelper( b2leftLight, sphereSize );
 
-    // scene.add(pointLightHelper10);
+    // scene.add(pointLightHelper);
+    // scene.add(pointLightHelper1);
+    // scene.add(pointLightHelper2);
+    // scene.add(pointLightHelper3);
+    // scene.add(pointLightHelper4);
+    // scene.add(pointLightHelper5);
+    // scene.add(pointLightHelper6);
+    // scene.add(pointLightHelper7);
     // ----------------------  End of Main Lights --------------------- //
     
 
@@ -188,9 +204,10 @@ function init(){
         // vase.position.set(0,10,-40);
         vase.position.set(0,0,0);
         vase.rotation.x = 0.009;
+        // vase.scale.set(0.5,0.5,0.5);
 
         if(window.innerWidth <= 1000){
-            vase.scale.set(0.5,0.5,0.5);
+            vase.scale.set(0.52,0.52,0.52);
         }
 
         scene.add(vase);
@@ -205,7 +222,7 @@ function init(){
         layers.rotation.x = 1.25;
 
         if(window.innerWidth <= 1000){
-            layers.scale.set(0.6,0.6,0.6);
+            layers.scale.set(0.5,0.5,0.5);
         }
 
         scene.add(layers);
@@ -230,20 +247,20 @@ function init(){
     // logoLight.position.set( 0, -19, 12);
     // scene.add(logoLight);
 
-    const logosLight = new THREE.PointLight( 0xffffff, 1, 5);
+    const logosLight = new THREE.PointLight( 0xE4BCFF, 1, 5);
     logosLight.position.set( 0, 1.5, 3);
     scene.add(logosLight);
 
-    // var pointLightHelper10 = new THREE.PointLightHelper( logosLight, sphereSize );
+    var pointLightHelper10 = new THREE.PointLightHelper( logosLight, sphereSize );
 
-    // scene.add( pointLightHelper10 );
+    scene.add( pointLightHelper10 );
 
     
 
-    loadingManager.onProgress = function(url,loaded,total) {
-        // progressBar.value = (loaded / total) * 100;
-        // console.log('\nLoading Progress: \n' + (progressBar.value) + '%');
-    };
+    // loadingManager.onProgress = function(url,loaded,total) {
+    //     progressBar.value = (loaded / total) * 100;
+    //     console.log('\nLoading Progress: \n' + (progressBar.value) + '%');
+    // };
 
     let vaseLoaded = new Boolean;
 
@@ -312,12 +329,7 @@ function init(){
 
     //--------------- End of Particle Animation Function -------------//
 
-
-
-
-    // -----------------------  Orbit Controller --------------------- //
-    // const controls = new THREE.OrbitControls( camera, renderer.domElement );
-    // controls.update();
+    
 
     // const tl = gsap.timeline();
     const tl = gsap.timeline({ paused: true, reversed: true });
@@ -342,8 +354,7 @@ function init(){
             animationDone = true;
 
             
-            tl.to(vase.position, {
-                
+            tl.to(vase.position, { // VASE ANIMATION START
                 if (){
                     vase.position.y = -10;
                 },
@@ -356,8 +367,6 @@ function init(){
                     start: "top center",
                     end: "bottom top",
                     scrub: 0.2,
-                    // onToggle: self => console.log("toggled, isActive:", self.isActive),
-                    // onUpdate: self => { console.log("\nposition y:", vase.position.y, "position z:", vase.position.z, "direction:", self.direction), "progress:", self.progress.toFixed(3); },
                 },
                 onComplete: () => ScrollTrigger.refresh(),
             }, "same")
@@ -377,7 +386,7 @@ function init(){
                 },
                 onComplete: () => ScrollTrigger.refresh(),
             },"same")
-            if(window.innerWidth >= 1000){
+            if(window.innerWidth >= 1000){ // THIS MOVES VASE TO THE RIGHT WHEN INFO-BTN CLICKED
                 tl2.to(vase.position, {
                     if(){
                         vase.position.x = 0;
@@ -386,8 +395,8 @@ function init(){
                     duration,
                     ease,
                 },"same")
-            }
-            tl.to(hands.position,{
+            } // END OF VASE ANIMATION
+            tl.to(hands.position,{ // HANDS ANIMATION START
                 if (){
                     hands.position.y = -10;
                 },
@@ -417,7 +426,7 @@ function init(){
                     scrub: 0.2,
                 },
             })
-            .to(hands.scale, {
+            .to(hands.scale, { // THIS SCALES THE HANDS MODEL
                 if (){
                 },
                 x: -2,
@@ -432,7 +441,7 @@ function init(){
                     scrub: 0.2,
                 },
             })
-            if(window.innerWidth >= 1000){
+            if(window.innerWidth >= 1000){// THIS MOVES HANDS TO THE RIGHT WHEN INFO-BTN CLICKED
                 tl3.to(hands.position,{
                     if (){
                         hands.position.x = 0;
@@ -441,46 +450,68 @@ function init(){
                     duration,
                     ease,
                 },"same")
-            }
-            tl.to(innerVaseLight.position, {
-                if (){
-                    innerVaseLight.position.y = -10.5;
-                },
-                z: 0,
-                y: 0.5,
-                duration,
-                ease,
-                scrollTrigger:{
-                    trigger:".first-move",
-                    start: "top center",
-                    end: "bottom top",
-                    scrub: 0.2,
-                },
-                onComplete: () => ScrollTrigger.refresh(),
-            }, "same")
-            .to(innerVaseLight.position, {
-                if (){
-                    innerVaseLight.position.y = 0.5;
-                },
-                y: 10.5,
-                duration,
-                ease,
-                scrollTrigger:{
-                    trigger:".third-move",
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 0.2,
-                },
-                onComplete: () => ScrollTrigger.refresh(),
-            }, "same")
-            if(window.innerWidth >= 1000){
-                tl2.to(innerVaseLight.position, {
+            } // END OF HAND ANIMATION
+            if(window.innerWidth <= 1000){ // INNER VASE LIGHT MOBILE ANIMATION
+                tl.to(innerVaseLight.position, {
+                    if (){
+                        innerVaseLight.position.y = -10.5;
+                    },
+                    y: 0.5,
+                    duration,
+                    ease,
+                    scrollTrigger:{
+                        trigger:".first-move",
+                        start: "top center",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
+                    onComplete: () => ScrollTrigger.refresh()
+                }, "same")
+                .to(innerVaseLight.position, {
                     if (){
                         innerVaseLight.position.y = 0.5;
                     },
-                    x: 3.8,
+                    y: 10.5,
                     duration,
                     ease,
+                    scrollTrigger:{
+                        trigger:".third-move",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
+                    onComplete: () => ScrollTrigger.refresh(),
+                }, "same")
+            } else { // INNER VASE LIGHT DESKTOP ANIMATION
+                tl2.to(innerVaseLight.position, {
+                    if (){
+                        innerVaseLight.position.y = -10.5;
+                    },
+                    y: 1,
+                    duration,
+                    ease,
+                    scrollTrigger:{
+                        trigger:".first-move",
+                        start: "top center",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
+                    onComplete: () => ScrollTrigger.refresh(),
+                }, "same")
+                .to(innerVaseLight.position, {
+                    if (){
+                        innerVaseLight.position.y = 1;
+                    },
+                    y: 10.5,
+                    duration,
+                    ease,
+                    scrollTrigger:{
+                        trigger:".third-move",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
+                    onComplete: () => ScrollTrigger.refresh(),
                 }, "same")
             }
             tl.to(leftLight.position, {
@@ -723,47 +754,70 @@ function init(){
                     ease,
                 }, "same")
             }
-            tl.to(middleLight.position, {
-                if () {
-                    middleLight.position.y = -13;
-                },
-                y: 3,
-                duration,
-                ease,
-                scrollTrigger:{
-                    trigger:".first-move",
-                    start: "top center",
-                    end: "bottom top",
-                    scrub: 0.2,
-                },
-                onComplete: () => ScrollTrigger.refresh(),
-            }, "same")
-            .to(middleLight.position, {
-                if (){
-                    middleLight.position.y = 3;
-                },
-                y: 13,
-                duration,
-                ease,
-                scrollTrigger:{
-                    trigger:".third-move",
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 0.2,
-                },
-                onComplete: () => ScrollTrigger.refresh(),
-            }, "same")
-            if(window.innerWidth >= 1000){
+            if(window.innerWidth <= 1000){ // MIDDLE LIGHT ANIMATION
                 tl2.to(middleLight.position, {
+                    if (){
+                        middleLight.position.y = -13;
+                    },
+                    y: 0,
+                    duration,
+                    ease,
+                    scrollTrigger:{
+                        trigger:".first-move",
+                        start: "top center",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
+                    onComplete: () => ScrollTrigger.refresh(),
+                }, "same")
+                .to(middleLight.position, {
+                    if (){
+                        middleLight.position.y = 0;
+                    },
+                    y: 13,
+                    duration,
+                    ease,
+                    scrollTrigger:{
+                        trigger:".third-move",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
+                    onComplete: () => ScrollTrigger.refresh(),
+                }, "same")
+            } else {
+                tl.to(middleLight.position, {
+                    if () {
+                        middleLight.position.y = -13;
+                    },
+                    y: 3,
+                    duration,
+                    ease,
+                    scrollTrigger:{
+                        trigger:".first-move",
+                        start: "top center",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
+                    onComplete: () => ScrollTrigger.refresh(),
+                }, "same")
+                .to(middleLight.position, {
                     if (){
                         middleLight.position.y = 3;
                     },
-                    x: 3.8,
+                    y: 13,
                     duration,
                     ease,
+                    scrollTrigger:{
+                        trigger:".third-move",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
+                    onComplete: () => ScrollTrigger.refresh(),
                 }, "same")
-            }
-            if(window.innerWidth >= 1000){
+            } // MIDDLE LIGHT ANIMATION END
+            if(window.innerWidth <= 1000){ // LOGOS LIGHT ANIMATION
                 tl2.to(logosLight.position, {
                     if (){
                         logosLight.position.y = 1.5;
@@ -771,6 +825,12 @@ function init(){
                     x: 3.8,
                     duration,
                     ease,
+                    scrollTrigger:{
+                        trigger:".first-move",
+                        start: "top center",
+                        end: "bottom top",
+                        scrub: 0.2,
+                    },
                 }, "same")
             }
             if(window.innerWidth >= 1000){
@@ -782,7 +842,7 @@ function init(){
                     duration,
                     ease,
                 }, "same")
-            }
+            } // LOGOS LIGHT ANIMATION END
             tl.to(layers.position, {
                 if () {
                     vase.position.y = -10;
@@ -835,6 +895,7 @@ function init(){
         }
 
     }
+    
 
     function eventListeners(){
         animations();
@@ -865,6 +926,141 @@ function init(){
         }
     })
         
+    // -----------------------  Orbit Controller --------------------- //
+
+
+    // OrbitControls setup (will be activated by the button click)
+    // OrbitControls setup (will be activated by the button click)
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; // Enable damping for smoother control
+    controls.dampingFactor = 0.25;
+    controls.screenSpacePanning = false;
+    controls.minDistance = 5; // Min camera distance to object
+    controls.maxDistance = 50; // Max zoom-out distance
+    controls.maxPolarAngle = Math.PI / 2; // Restrict the vertical angle
+    controls.enabled = false; // Initially disabled
+
+    const transformControls = new THREE.TransformControls(camera, renderer.domElement);
+
+    // Set up drag controls for moving the vase and hands
+    const dragControls = new THREE.DragControls([vase], camera, renderer.domElement);
+    const dragControls2 = new THREE.DragControls([hands], camera, renderer.domElement);
+    dragControls.enabled = false; // Initially disabled
+    dragControls2.enabled = false; // Initially disabled
+
+    // Variables to track touch state
+    let isTouching = false;
+    let previousTouchPosition = new THREE.Vector2();
+    let currentModel = null; // Define currentModel here
+
+    // Function to prevent default scrolling behavior
+    function preventScroll(event) {
+        event.preventDefault();
+    }
+
+    // Toggle controls and scroll state
+    const vaseOrbitButton = document.querySelector('.vase-orbit');
+    const handsOrbitButton = document.querySelector('.hands-orbit');
+    let controlsEnabled = false; // Keep track of whether controls are enabled
+
+    function toggleControls(isVaseButton) {
+        controlsEnabled = !controlsEnabled; // Toggle control state
+
+        if (controlsEnabled) {
+            currentModel = isVaseButton ? vase : hands; // Set the current model to vase or hands
+
+            controls.enabled = true; // Enable OrbitControls
+            if (isVaseButton) {
+                dragControls.enabled = true; // Enable DragControls for vase
+                dragControls2.enabled = false; // Ensure hands drag controls are disabled
+            } else {
+                dragControls.enabled = false; // Disable vase drag controls
+                dragControls2.enabled = true; // Enable DragControls for hands
+            }
+
+            // Disable scrolling
+            document.body.style.overflow = 'hidden';
+            window.addEventListener('wheel', preventScroll, { passive: false });
+            window.addEventListener('touchmove', preventScroll, { passive: false });
+
+            console.log(`Controls enabled for ${isVaseButton ? 'vase' : 'hands'}, scrolling disabled`);
+        } else {
+            // Disable OrbitControls and DragControls
+            controls.enabled = false;
+            dragControls.enabled = false;
+            dragControls2.enabled = false;
+            currentModel = null; // Clear current model when controls are disabled
+
+            // Re-enable scrolling
+            document.body.style.overflow = '';
+            window.removeEventListener('wheel', preventScroll);
+            window.removeEventListener('touchmove', preventScroll);
+
+            console.log("Controls disabled, scrolling enabled");
+        }
+    }
+
+    // Button event listeners
+    if (vaseOrbitButton) {
+        vaseOrbitButton.addEventListener('click', function () {
+            toggleControls(true); // Toggle controls for vase
+        });
+    }
+
+    if (handsOrbitButton) {
+        handsOrbitButton.addEventListener('click', function () {
+            toggleControls(false); // Toggle controls for hands
+        });
+    }
+
+    // Add touchstart event to track when the user touches the screen
+    window.addEventListener('touchstart', function (event) {
+        if (controls.enabled && currentModel) { // Only activate touch controls if OrbitControls are enabled
+            isTouching = true;
+
+            // Get the touch position
+            const touch = event.touches[0];
+            previousTouchPosition.x = (touch.clientX / window.innerWidth) * 2 - 1;
+            previousTouchPosition.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+        }
+    });
+
+    // Add touchmove event to rotate the currently active model
+    window.addEventListener('touchmove', function (event) {
+        if (isTouching && controls.enabled && currentModel) {
+            const touch = event.touches[0];
+
+            // Calculate the new touch position
+            const touchPosition = new THREE.Vector2(
+                (touch.clientX / window.innerWidth) * 2 - 1,
+                (touch.clientY / window.innerHeight) * 2 + 1
+            );
+
+            // Calculate the change in touch position
+            const deltaX = touchPosition.x - previousTouchPosition.x;
+            const deltaY = touchPosition.y - previousTouchPosition.y;
+
+            // Rotate the current model based on touch movement
+            currentModel.rotation.y += deltaX * Math.PI; // Adjust sensitivity by changing the multiplier
+            currentModel.rotation.x += deltaY * Math.PI; // Adjust sensitivity by changing the multiplier
+
+            // Update previous touch position
+            previousTouchPosition.copy(touchPosition);
+        }
+    });
+
+    // Add touchend event to track when the user releases the touch
+    window.addEventListener('touchend', function () {
+        isTouching = false;
+    });
+
+    // Add TransformControls to the scene
+    scene.add(transformControls);
+
+
+
+
+
     // ---------------------  End of Orbit Controller ---------------- //
     
 
@@ -900,13 +1096,12 @@ function init(){
 
     // -------------------- End of Lerping effect -------------------- //
 
-
+    
     //------------------------- RENDER LOOP ---------------------------//
     function render() {
         
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.render(scene,camera);
-      
     }
     //----------------------- END OF RENDER LOOP  ----------------------//
   
@@ -918,9 +1113,12 @@ function init(){
 
         particleRotate();
         onMouseMove();
+        controls.update();
 
         if(vaseLoaded == true){
-            vaselerp();
+            if(window.innerWidth >= 1000){
+                vaselerp();
+            }
             eventListeners();
         }
 
