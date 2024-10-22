@@ -812,8 +812,8 @@ canvas {
     box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.3);
     background-color: rgba(255, 255, 255, 0.05);
     overflow: hidden;
-    -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
     top: 0px;
     height: 0px;
     width: 0px;
@@ -1037,7 +1037,7 @@ canvas {
         /* left: -20px; */
         border-radius: 10px;
         width: 350px;
-        height: 200px;
+        /* height: 200px; */
         cursor: pointer;
         /* margin-bottom: 10px; */
         transform: translateZ(30px);
@@ -1234,11 +1234,11 @@ canvas {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #000000b4;
+        background-color: #000000e2;
         color: #ffffff;
-        height: 100vh;
-        width: 100vw;
-        z-index: 11;
+        height: 100%;
+        width: 100%;
+        z-index: 14;
         top: 0;
     }
 
@@ -1366,7 +1366,7 @@ canvas {
             position: fixed;
             width: 40px;
             display: flex;
-            left: 10%;
+            left: 5%;
             top: 10px;
             cursor: pointer;
             rotate: 90deg;
@@ -1411,13 +1411,20 @@ canvas {
             }
         }
 
+        .cart-total {
+            display: none;
+        }
+
         .show-cart {
-          width: 100% !important;  
+          width: 100% !important; 
+          z-index: 99999; 
+          background-color: dimgray;
         }
     
         .vase-info-btn {
             position:absolute;
-            top: 125px;
+            z-index: 13;
+            top: 100px;
             left: 48%;
             font-size: 2rem;
             color: #333438;
@@ -1430,23 +1437,28 @@ canvas {
     
         .info-card {
             left: 0;
+            border-radius: 0px;
         }
     
         .show {
+            z-index: 12;
             width: 100%;
             height: 100%;
         }
     
         .info-card .card-container {
             width: 100% !important;
-            min-width: none !important;
             padding-left: 5% !important;
             padding-right: 5% !important;
             padding-top: 25% !important;
+            border-radius: 0px !important;
+            background-color: dimgray !important;
         }
 
         .second-info-card {
             left: 0% !important;
+            /* background-color: dimgray !important; */
+
         }
 
         .second-info-card .card-container {
@@ -1455,10 +1467,16 @@ canvas {
             padding-left: 5% !important;
             padding-right: 5% !important;
             padding-top: 25% !important;
+            border-radius: 0px !important;
+            z-index: 12;
         }
 
         .largeImg {
-            height: 200px !important;
+            height: 190px !important;
+        }
+
+        .img-close {
+            top: 50px;
         }
 
         .shop-item-image {
@@ -1476,6 +1494,7 @@ canvas {
             font-size: 1rem;
             color: #ffffff;
             cursor: pointer;
+            z-index: 13;
         }
     
         .low-sec {
@@ -1533,13 +1552,16 @@ canvas {
         .welcome-sec {
             position: absolute;
             color: #ffffff;
-            top: -100px;
+            top: -150px;
             cursor: default;
+            right: 0;
+            left: 5%;
         }
         
         .welcome-sec h6 {
             font-size: 9px;
             font-weight: 600;
+            text-align: left;
         }
     
       } 
