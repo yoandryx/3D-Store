@@ -154,10 +154,11 @@ function init(){
     const pmaterial = new THREE.MeshStandardMaterial({
         // color: 0xDFB0FF,
         // color: 0xE4BBFF,
-        color: 0xE4BCFF,
+        color: 0xE4BCFF, // remember its this one
         // color: 0xD0D0D0,
         // color: 0xDADFF1,
         // color: 0xFFFFFF,
+        // color: 0xF1CA89,
         side: THREE.DoubleSide,
     });
 
@@ -188,7 +189,7 @@ function init(){
     
     var loadingManager = new THREE.LoadingManager();
     var loader = new THREE.GLTFLoader(loadingManager);
-    // const loadingScreen = document.getElementById('loadingScreen');
+    const loadingScreen = document.getElementById('loadingScreen');
 
     var vase;
     var layers;

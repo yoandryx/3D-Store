@@ -1438,6 +1438,12 @@ canvas {
         .info-card {
             left: 0;
             border-radius: 0px;
+            box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            border-radius: 20px;
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
         }
     
         .show {
@@ -1452,7 +1458,7 @@ canvas {
             padding-right: 5% !important;
             padding-top: 25% !important;
             border-radius: 0px !important;
-            background-color: dimgray !important;
+            /* background-color: dimgray !important; */
         }
 
         .second-info-card {
