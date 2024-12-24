@@ -1459,7 +1459,7 @@ canvas {
             padding-top: 25% !important;
             border-radius: 0px !important;
             top: 0% !important;
-            backdrop-filter: blur(15px) !important;
+            backdrop-filter: blur(90px) !important;
         }
 
         .second-info-card {
