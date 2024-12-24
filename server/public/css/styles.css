@@ -1459,8 +1459,8 @@ canvas {
             padding-top: 25% !important;
             border-radius: 0px !important;
             top: 0% !important;
-            -webkit-backdrop-filter: blur(50px) !important;
-            backdrop-filter: blur(90px) !important;
+            backdrop-filter: blur(10px) !important; /* For most modern browsers */
+            -webkit-backdrop-filter: blur(10px) !important; /* Safari compatibility */
         }
 
         .second-info-card {
