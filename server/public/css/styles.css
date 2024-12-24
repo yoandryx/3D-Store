@@ -1454,15 +1454,15 @@ canvas {
     
         .info-card .card-container {
             width: 100% !important;
-            padding-left: 5% !important;
-            padding-right: 5% !important;
-            padding-top: 25% !important;
-            border-radius: 0px !important;
-            top: 0% !important;
-            background-color: rgba(255, 255, 255, 0.55) !important;
-            /* backdrop-filter: blur(15px) !important; For most modern browsers */
+            padding: 25% 5% 0 5% !important; /* Combines padding into shorthand */
+            border-radius: 0 !important; /* Simplified declaration */
+            top: 0 !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(15px) !important; /* Modern browser support */
             -webkit-backdrop-filter: blur(15px) !important; /* Safari compatibility */
+            transform: translate3d(0, 0, 0) !important; /* Promotes GPU rendering */
         }
+        
 
         .second-info-card {
             left: 0% !important;
