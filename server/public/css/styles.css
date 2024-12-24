@@ -1457,11 +1457,13 @@ canvas {
             padding: 25% 5% 0 5% !important; /* Combines padding into shorthand */
             border-radius: 0 !important; /* Simplified declaration */
             top: 0 !important;
-            background-color: rgba(255, 255, 255, 0.05) !important;
-            backdrop-filter: blur(15px) !important; /* Modern browser support */
-            -webkit-backdrop-filter: blur(15px) !important; /* Safari compatibility */
+            background-color: rgba(255, 255, 255, 0.55) !important;
+            -webkit-backdrop-filter: blur(15px) !important; /* Safari-specific blur */
+            backdrop-filter: blur(15px) !important; /* For modern browsers */
+            -webkit-transform: translate3d(0, 0, 0) !important; /* Safari-specific GPU rendering */
             transform: translate3d(0, 0, 0) !important; /* Promotes GPU rendering */
-        }
+            position: relative !important; /* Ensures proper positioning */
+        }        
         
 
         .second-info-card {
