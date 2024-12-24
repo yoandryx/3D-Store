@@ -1453,6 +1453,7 @@ canvas {
         }
     
         .info-card .card-container {
+            height: 100% !important;
             width: 100% !important;
             padding-left: 5% !important;
             padding-right: 5% !important;
