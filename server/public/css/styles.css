@@ -1458,13 +1458,12 @@ canvas {
             padding-right: 5% !important;
             padding-top: 25% !important;
             border-radius: 0px !important;
-            /* background-color: dimgray !important; */
+            top: 0% !important;
+            backdrop-filter: blur(15px) !important;
         }
 
         .second-info-card {
             left: 0% !important;
-            /* background-color: dimgray !important; */
-
         }
 
         .second-info-card .card-container {
