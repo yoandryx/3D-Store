@@ -356,7 +356,7 @@ canvas {
     width:0px;
     height:0px;
     left: 24%;
-    top: 65px;
+    top: 55px;
     cursor: default;
     transform-style: preserve-3d;
     transform: perspective(1000px);
@@ -1452,12 +1452,12 @@ canvas {
             height: 100%;
         }
     
-        .info-card .card-container {
+        .card-container {
             width: 100% !important;
             padding: 25% 5% 0 5% !important; /* Combines padding into shorthand */
             border-radius: 0 !important; /* Simplified declaration */
             top: 0 !important;
-            background-color: rgba(255, 255, 255, 0.55) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
             -webkit-backdrop-filter: blur(15px) !important; /* Safari-specific blur */
             backdrop-filter: blur(15px) !important; /* For modern browsers */
             -webkit-transform: translate3d(0, 0, 0) !important; /* Safari-specific GPU rendering */
